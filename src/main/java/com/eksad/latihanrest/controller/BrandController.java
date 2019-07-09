@@ -15,13 +15,13 @@ import com.eksad.latihanrest.dao.BrandDao;
 import com.eksad.latihanrest.model.Brand;
 
 @RestController
-@RequestMapping("brand")
+@RequestMapping("/brand")
 public class BrandController {
 	
 	@Autowired
 	BrandDao brandDao;
 	
-	@RequestMapping("getAll")
+	@RequestMapping("/getAll")
 	public List<Brand> getAll() {
 		List<Brand>result = new ArrayList<>();
 		
