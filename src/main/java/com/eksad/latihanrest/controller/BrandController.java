@@ -5,23 +5,34 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eksad.latihanrest.dao.BrandDao;
 import com.eksad.latihanrest.model.Brand;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping("/brand")
+@RequestMapping("/api/v1/brand")
+@Api(tags = "Brand")
 public class BrandController {
 	
 	@Autowired
 	BrandDao brandDao;
 	
-	@RequestMapping("/getAll")
+	@ApiOperation(
+			value = "API to retview all brand's data",
+			notes = "Return data with JSON Format",
+			tags = "Get Data API")
+	@GetMapping("/getAll")
 	public List<Brand> getAll() {
 		List<Brand>result = new ArrayList<>();
 		
@@ -30,13 +41,21 @@ public class BrandController {
 		return result;
 	}
 	
-	@RequestMapping("getOne/{id}") //wajib id
+	@ApiOperation(
+			value = "API to retview brand's data by id",
+			notes = "Return data with JSON Format",
+			tags = "Get Data API")
+	@GetMapping("getOne/{id}") //wajib id
 	public  Brand getOne(@PathVariable Long id) {
 		return brandDao.findById(id).orElse(null);
 	}
 	
-	@RequestMapping(value = "save/{id}", method = RequestMethod.POST)
-	public Brand save(@RequestBody Brand brand) { //req body berfungsi untuk ngebaca data apa yang akan dikirim dalambentuk brand
+	@ApiOperation(
+			value = "Add new Brand data",
+			notes = "Add new Brand data to database",
+			tags = "Data Manipulation API")
+	@PostMapping(value = "add/{id}")
+	public Brand add(@RequestBody Brand brand) { //req body berfungsi untuk ngebaca data apa yang akan dikirim dalambentuk brand
 		try {
 			return brandDao.save(brand);
 			//return "Berhsail Tersimpan";
@@ -46,7 +65,12 @@ public class BrandController {
 			return null;
 		}
 	}
-	@RequestMapping(value = "update/{id}", method = RequestMethod.PUT)
+	
+	@ApiOperation(
+			value = "Update new Brand data",
+			notes = "Update new Brand data to database",
+			tags = "Data Manipulation API")
+	@PutMapping(value = "update/{id}")
 	public Brand update(@RequestBody Brand brand, @PathVariable Long id) {
 		Brand brandSelected = brandDao.findById(id).orElse(null);
 		if(brandSelected !=null) {
@@ -61,7 +85,12 @@ public class BrandController {
 			//return "Gagal Memperbaharui";
 		}
 	}
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+	
+	@ApiOperation(
+			value = "Delete Brand data",
+			notes = "Delete Brand data to database",
+			tags = "Data Manipulation API")
+	@DeleteMapping(value = "delete/{id}")
 	public HashMap<String, Object> delete(@PathVariable Long id) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		brandDao.deleteById(id);
