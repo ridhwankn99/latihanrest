@@ -26,7 +26,7 @@ public class SwaggerConfig {
 	public Docket eksadAPI() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.eksad.supermarket"))
+				.apis(RequestHandlerSelectors.basePackage("com.eksad.latihanrest"))
 				.paths(regex("/api.*"))//Scanning path dengan prefix/basepath yang diawal
 				.build()
 				.apiInfo(metaInfo()) //Assign metaInfo
