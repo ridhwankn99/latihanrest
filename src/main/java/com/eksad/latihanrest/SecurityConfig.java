@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //berisi meth
  	@Override
  	protected void configure(AuthenticationManagerBuilder auth) throws Exception { //konfigurasi mencari akses username password dan role
  		
- 		/*tring admin = "admin";
+ 		String admin = "admin";
  		String adminPassword = encoder().encode("1234");
  		
  		String user = "user";
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //berisi meth
  			.withUser(user).password(userPassword).roles("USER");
 		
 		auth.userDetailsService(usersService).passwordEncoder(encoder()); //memeriksa kredensial (username, password, role) apakah tersedia atau tidak
- 	*/
+ 
  	}
  	@Bean
  	public BCryptPasswordEncoder encoder() { //encode/enkripsi password

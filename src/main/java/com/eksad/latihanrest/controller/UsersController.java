@@ -24,7 +24,7 @@ public class UsersController {
 	@Autowired
 	UsersDao usersDao;
 	
-	@RequestMapping("admin")
+	@RequestMapping("")
 	public HashMap<String, Object> admin() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Massage", "masuk sebagai admin");
